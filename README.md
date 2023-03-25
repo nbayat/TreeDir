@@ -9,5 +9,5 @@
 
         
 ```bash
-~$ ./build/bin/arbreSim ./test/test1.txt
+~$ ./build/bin/arbreSim ./tests/test1.txt
 ```
