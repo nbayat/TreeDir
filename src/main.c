@@ -51,5 +51,5 @@ int main(int argc, char *argv[]) {
     free(root);
     fclose(cmd_file);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
