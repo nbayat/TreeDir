@@ -3,6 +3,8 @@
 #include <string.h>
 #include "noeud.h"
 #include "cmd/ls.h"
+#include "cmd/touch.h"
+#include "cmd/print.h"
 
 #define MAX_CMD_LEN 100
 
@@ -20,13 +22,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    // créer le noeud racine du système de fichiers
-    noeud *root = (noeud*)malloc(sizeof(noeud));
-    root->est_dossier = true;
-    strcpy(root->nom, "/");
-    root->pere = NULL;
-    root->racine = root;
-    root->fils = NULL;
+    noeud *root = create_node(true, "/", NULL);
 
     // mettre le répertoire courant à la racine
     noeud *current_dir = root;
@@ -42,9 +38,15 @@ int main(int argc, char *argv[]) {
 
         if (strcmp(arg, "ls") == 0) {
             ls(current_dir);
+        } else if (strcmp(arg, "touch") == 0) {
+            arg = strtok(NULL, " ");
+            touch(current_dir, arg);
+        } else if (strcmp(arg, "print") == 0) {
+            print_noeud(current_dir->racine);
         } else {
-            printf("Unknown command: %s\n", arg);
+            printf("Error: unknown command: %s\n", arg);
         }
+        
     }
 
     // libérer la mémoire et fermer le fichier de commandes

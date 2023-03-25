@@ -1,1 +1,5 @@
-build
+# Build dir
+./build
+
+# unix filesystem
+.DS_Store
