@@ -1,5 +1,6 @@
 # Build dir
-./build
+build
+
 
 # unix filesystem
 .DS_Store
