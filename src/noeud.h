@@ -25,7 +25,11 @@ void remove_child(noeud* parent, noeud* child);
 void free_node(noeud* node);
 int nb_children(noeud* node);
 void print_noeud(noeud* node);
-void print_children(noeud* node)
+void print_children(noeud* node);
+noeud* find_child(noeud* parent, char nom[100]);
+noeud* find_node(noeud* root, char nom[100]);
+bool have_child(noeud* parent, noeud* child);
+
 noeud* create_root_node();
 
 #endif

@@ -142,6 +142,45 @@ void print_children(noeud* node) {
     printf("\n");
 }
 
+bool have_child(noeud* parent, noeud* child) {
+    liste_noeud* curr = parent->fils;
+    while (curr != NULL) {
+        if (curr->no == child) {
+            return true;
+        }
+        curr = curr->succ;
+    }
+    return false;
+}
+
+noeud* find_child(noeud* parent, char nom[100]) {
+    liste_noeud* curr = parent->fils;
+    while (curr != NULL) {
+        if (strcmp(curr->no->nom, nom) == 0) {
+            return curr->no;
+        }
+        curr = curr->succ;
+    }
+    return NULL;
+}
+
+noeud* find_node(noeud* root, char nom[100]) {
+    // si le noeud courant est le noeud recherche, on retourne le noeud courant
+    if (strcmp(root->nom, nom) == 0) {
+        return root;
+    }
+    // sinon on cherche le noeud recherche dans les noeuds enfants du noeud courant
+    liste_noeud* curr = root->fils;
+    while (curr != NULL) {
+        noeud* found = find_node(curr->no, nom);
+        if (found != NULL) {
+            return found;
+        }
+        curr = curr->succ;
+    }
+    return NULL;
+}
+
 // libere la memoire allouee pour un noeud et ses enfants recursivement
 void free_node(noeud* node) {
     // libere la memoire allouee pour les noeuds enfants du noeud courant et ses enfants recursivement

@@ -1,2 +1,3 @@
 touch nima
-print
+cd test1
+ls

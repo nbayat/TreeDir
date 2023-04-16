@@ -5,6 +5,7 @@
 #include "cmd/ls.h"
 #include "cmd/touch.h"
 #include "cmd/print.h"
+#include "cmd/cd.h"
 
 #define MAX_CMD_LEN 100
 
@@ -27,6 +28,13 @@ int main(int argc, char *argv[]) {
     // mettre le répertoire courant à la racine
     noeud *current_dir = root;
 
+    add_child(current_dir, create_node(true, "test", current_dir, NULL));
+
+    noeud *test1 = create_node(true, "test1", current_dir, NULL);
+    add_child(current_dir, test1);
+    noeud *test2 = create_node(true, "test2", test1, NULL);
+    add_child(test1, test2);
+
     // boucle sur le fichier de commandes et exécute chaque commande
     char cmd[MAX_CMD_LEN];
     while (fgets(cmd, MAX_CMD_LEN, cmd_file) != NULL) {
@@ -43,6 +51,9 @@ int main(int argc, char *argv[]) {
             touch(current_dir, arg);
         } else if (strcmp(arg, "print") == 0) {
             print_noeud(current_dir);
+        } else if (strcmp(arg, "cd") == 0) {
+            arg = strtok(NULL, " ");
+            current_dir = cd(arg, current_dir);
         } else {
             printf("Error: unknown command: %s\n", arg);
         }
