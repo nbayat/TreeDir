@@ -7,11 +7,16 @@
 bool isCurrent (char *path);
 bool isLevelUp (char *path);
 bool isRelative (char *path);
+bool isReturnToRoot (char *path);
 
 
 noeud* cd (char *path, noeud *dir) {
     if (dir->fils == NULL) {
         printf("This directory is empty\n");
+        return dir;
+    }
+    if (isReturnToRoot(path)) {
+        dir = dir->racine;
         return dir;
     }
     if (isCurrent(path)) {
@@ -60,6 +65,16 @@ noeud* cd (char *path, noeud *dir) {
         }
     }
     return dir;
+}
+
+bool isReturnToRoot (char *path) {
+    if (path[0] == '/' && path[1] == '\0') {
+        return true;
+    }
+    if (path[0] == '\0') {
+        return true;
+    }
+    return false;
 }
 
 bool isCurrent (char *path) {
