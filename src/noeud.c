@@ -127,6 +127,21 @@ void print_noeud(noeud* node) {
     }
 }
 
+void print_children(noeud* node) {
+    // Print nom et type de chaque fils
+    liste_noeud* child = node->fils;
+    while (child != NULL) {
+        printf("%s", child->no->nom);
+        if (child->no->est_dossier) {
+            printf("(D) ");
+        } else {
+            printf(" ");
+        }
+        child = child->succ;
+    }
+    printf("\n");
+}
+
 // libere la memoire allouee pour un noeud et ses enfants recursivement
 void free_node(noeud* node) {
     // libere la memoire allouee pour les noeuds enfants du noeud courant et ses enfants recursivement

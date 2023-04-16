@@ -42,7 +42,6 @@ int main(int argc, char *argv[]) {
             arg = strtok(NULL, " ");
             touch(current_dir, arg);
         } else if (strcmp(arg, "print") == 0) {
-            add_child(current_dir, create_node(true, "test", current_dir, NULL));
             print_noeud(current_dir);
         } else {
             printf("Error: unknown command: %s\n", arg);

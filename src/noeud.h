@@ -25,6 +25,7 @@ void remove_child(noeud* parent, noeud* child);
 void free_node(noeud* node);
 int nb_children(noeud* node);
 void print_noeud(noeud* node);
+void print_children(noeud* node)
 noeud* create_root_node();
 
 #endif
