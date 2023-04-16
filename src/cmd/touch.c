@@ -15,5 +15,5 @@ void touch(noeud* parent, char* filename) {
     }
 
     // Initialize the file node.
-    new_file = create_node(false, filename, parent);
+    new_file = create_node(false, filename, parent, NULL);
 }

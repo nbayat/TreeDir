@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    noeud *root = create_node(true, "/", NULL);
+    noeud *root = create_root_node();
 
     // mettre le répertoire courant à la racine
     noeud *current_dir = root;
@@ -42,7 +42,8 @@ int main(int argc, char *argv[]) {
             arg = strtok(NULL, " ");
             touch(current_dir, arg);
         } else if (strcmp(arg, "print") == 0) {
-            print_noeud(current_dir->racine);
+            add_child(current_dir, create_node(true, "test", current_dir, NULL));
+            print_noeud(current_dir);
         } else {
             printf("Error: unknown command: %s\n", arg);
         }

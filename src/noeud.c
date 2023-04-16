@@ -6,7 +6,7 @@
 #include "noeud.h"
 
 // cree un nouveau noeud et initialise ses champs
-noeud* create_node(bool est_dossier, char nom[100], noeud* pere) {
+noeud* create_node(bool est_dossier, char nom[100], noeud* pere, liste_noeud* fils) {
     // alloue de la memoire pour le nouveau noeud
     noeud* node = (noeud*)malloc(sizeof(noeud));
     if (node == NULL) {
@@ -18,15 +18,22 @@ noeud* create_node(bool est_dossier, char nom[100], noeud* pere) {
     strncpy(node->nom, nom, sizeof(node->nom));
     // si le noeud a un parent, on definit son noeud racine comme etant le noeud 
     // racine du parent, sinon on definit son noeud racine comme etant lui meme
-    node->fils = NULL;
+    if (pere != NULL) {
+        node->pere = pere->pere;
+    } else {
+        node->pere = node;
+    }
+    if (fils != NULL) {
+        node->fils = fils;
+    } else {
+        node->fils = NULL;
+    }
     return node;
 }
 
 // cree un noeud racine qui pointe sur lui meme
 noeud* create_root_node() {
-    // cree un noeud avec le nom "/" et definit son parent comme etant lui meme
-    noeud* root = create_node(true, "/", NULL);
-    root->pere = root;
+    noeud* root = create_node(true, "", NULL, NULL);
     return root;
 }
 
@@ -77,6 +84,47 @@ void remove_child(noeud* parent, noeud* child) {
         prev->succ = curr->succ;
     }
     free(curr);
+}
+
+int nb_children(noeud* node) {
+    int num_children = 0;
+    liste_noeud* child = node->fils;
+    while (child != NULL) {
+        num_children++;
+        child = child->succ;
+    }
+    return num_children;
+}
+
+void print_noeud(noeud* node) {
+    // Print nom
+    printf("%s ", node->nom);
+
+    // Print nb de fils
+    int num_children = nb_children(node);
+    printf("(%d): ", num_children);
+
+    // Print nom et type de chaque fils
+    liste_noeud* child = node->fils;
+    while (child != NULL) {
+        printf("%s", child->no->nom);
+        if (child->no->est_dossier) {
+            printf("(D) ");
+        } else {
+            printf(" ");
+        }
+        child = child->succ;
+    }
+    printf("\n");
+
+    // print les fils recursivement
+    child = node->fils;
+    while (child != NULL) {
+        if (child->no->est_dossier) {
+            print_noeud(child->no);
+        }
+        child = child->succ;
+    }
 }
 
 // libere la memoire allouee pour un noeud et ses enfants recursivement

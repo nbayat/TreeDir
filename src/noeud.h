@@ -19,9 +19,12 @@ struct liste_noeud {
     struct liste_noeud *succ;
 };
 
-noeud* create_node(bool est_dossier, char nom[100], noeud* pere);
+noeud* create_node(bool est_dossier, char nom[100], noeud* pere, liste_noeud* fils);
 void add_child(noeud* parent, noeud* child);
 void remove_child(noeud* parent, noeud* child);
 void free_node(noeud* node);
+int nb_children(noeud* node);
+void print_noeud(noeud* node);
+noeud* create_root_node();
 
 #endif
