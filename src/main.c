@@ -6,6 +6,7 @@
 #include "cmd/touch.h"
 #include "cmd/print.h"
 #include "cmd/cd.h"
+#include "cmd/pwd.h"
 
 #define MAX_CMD_LEN 100
 
@@ -54,6 +55,10 @@ int main(int argc, char *argv[]) {
         } else if (strcmp(arg, "cd") == 0) {
             arg = strtok(NULL, " ");
             current_dir = cd(arg, current_dir);
+        } else if (strcmp(arg, "pwd") == 0) {
+            char *pwd_output = pwd(current_dir);
+            printf("%s\n", pwd_output);
+            free(pwd_output);
         } else {
             printf("Error: unknown command: %s\n", arg);
         }

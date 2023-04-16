@@ -1,3 +1,8 @@
 touch nima
+ls
 cd test1
 ls
+pwd
+cd test2
+ls
+pwd
