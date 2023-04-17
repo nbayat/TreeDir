@@ -10,16 +10,18 @@
 
 #define MAX_CMD_LEN 100
 
-
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
+int main(int argc, char *argv[])
+{
+    if (argc != 2)
+    {
         printf("Usage: %s <command_file>\n", argv[0]);
         exit(EXIT_FAILURE);
     }
 
     // ouvrir le fichier de commandes
     FILE *cmd_file = fopen(argv[1], "r");
-    if (cmd_file == NULL) {
+    if (cmd_file == NULL)
+    {
         printf("Error: could not open command file: %s\n", argv[1]);
         exit(EXIT_FAILURE);
     }
@@ -38,31 +40,42 @@ int main(int argc, char *argv[]) {
 
     // boucle sur le fichier de commandes et exécute chaque commande
     char cmd[MAX_CMD_LEN];
-    while (fgets(cmd, MAX_CMD_LEN, cmd_file) != NULL) {
+    while (fgets(cmd, MAX_CMD_LEN, cmd_file) != NULL)
+    {
         // supprimer le caractère de fin de ligne du string de commande
         cmd[strcspn(cmd, "\n")] = '\0';
 
         // découper la chaîne de caractères en arguments
         char *arg = strtok(cmd, " ");
 
-        if (strcmp(arg, "ls") == 0) {
+        if (strcmp(arg, "ls") == 0)
+        {
             ls(current_dir);
-        } else if (strcmp(arg, "touch") == 0) {
+        }
+        else if (strcmp(arg, "touch") == 0)
+        {
             arg = strtok(NULL, " ");
             touch(current_dir, arg);
-        } else if (strcmp(arg, "print") == 0) {
+        }
+        else if (strcmp(arg, "print") == 0)
+        {
             print_noeud(current_dir);
-        } else if (strcmp(arg, "cd") == 0) {
+        }
+        else if (strcmp(arg, "cd") == 0)
+        {
             arg = strtok(NULL, " ");
             current_dir = cd(arg, current_dir);
-        } else if (strcmp(arg, "pwd") == 0) {
+        }
+        else if (strcmp(arg, "pwd") == 0)
+        {
             char *pwd_output = pwd(current_dir);
             printf("%s\n", pwd_output);
             free(pwd_output);
-        } else {
+        }
+        else
+        {
             printf("Error: unknown command: %s\n", arg);
         }
-        
     }
 
     // libérer la mémoire et fermer le fichier de commandes

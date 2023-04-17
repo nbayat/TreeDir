@@ -3,6 +3,6 @@
 
 #include "../noeud.h"
 
-char* pwd(noeud *n);
+char *pwd(noeud *n);
 
 #endif

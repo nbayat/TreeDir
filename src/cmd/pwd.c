@@ -3,9 +3,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-char* pwd(noeud *n){
+char *pwd(noeud *n)
+{
     char *path = malloc(100);
-    if (n->pere == n) {
+    if (n->pere == n)
+    {
         return path;
     }
     printf(" %s, ", n->pere->nom);

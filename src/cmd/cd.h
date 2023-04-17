@@ -3,6 +3,6 @@
 
 #include "../noeud.h"
 
-noeud* cd (char *path, noeud *dir);
+noeud *cd(char *path, noeud *dir);
 
 #endif
