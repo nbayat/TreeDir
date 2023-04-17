@@ -8,6 +8,7 @@
 #include "cmd/cd.h"
 #include "cmd/pwd.h"
 #include "cmd/mkdir.h"
+#include "cmd/rm.h"
 
 #define MAX_CMD_LEN 100
 
@@ -77,6 +78,11 @@ int main(int argc, char *argv[])
         {
             arg = strtok(NULL, " ");
             mkdir(arg, current_dir);
+        }
+        else if (strcmp(arg, "rm") == 0)
+        {
+            arg = strtok(NULL, " ");
+            rm(arg, current_dir);
         }
         else
         {

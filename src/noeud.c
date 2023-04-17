@@ -107,6 +107,37 @@ void remove_child(noeud *parent, noeud *child)
     free(curr);
 }
 
+void remove_child_by_name(noeud *parent, char nom[100])
+{
+    // Find the child node in the parent's list of children
+    liste_noeud *prev = NULL;
+    liste_noeud *curr = parent->fils;
+    while (curr != NULL)
+    {
+        if (strcmp(curr->no->nom, nom) == 0)
+        {
+            break;
+        }
+        prev = curr;
+        curr = curr->succ;
+    }
+    // si le noeud enfant n'est pas trouve, on ne fait rien
+    if (curr == NULL)
+    {
+        return;
+    }
+    // supprime le noeud enfant de la liste des noeuds enfants du noeud parent
+    if (prev == NULL)
+    {
+        parent->fils = curr->succ;
+    }
+    else
+    {
+        prev->succ = curr->succ;
+    }
+    free(curr);
+}
+
 int nb_children(noeud *node)
 {
     int num_children = 0;
