@@ -1,7 +1,13 @@
+// les bibliothèques standards
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
+
+// structure de données
 #include "noeud.h"
+
+// les commandes
 #include "cmd/ls.h"
 #include "cmd/touch.h"
 #include "cmd/print.h"
@@ -26,7 +32,8 @@ int main(int argc, char *argv[])
     FILE *cmd_file = fopen(argv[1], "r");
     if (cmd_file == NULL)
     {
-        printf("Error: could not open command file: %s\n", argv[1]);
+        printf("Erreur: impossible d'ouvrir le fichier de commandes (référence_de_l'erreur_MAIN02) \n");
+        fclose(cmd_file);
         exit(EXIT_FAILURE);
     }
 

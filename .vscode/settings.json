@@ -3,6 +3,9 @@
         "noeud.h": "c",
         "ctype.h": "c",
         "stdio.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "complex": "c",
+        "stdlib.h": "c",
+        "stdbool.h": "c"
     }
 }

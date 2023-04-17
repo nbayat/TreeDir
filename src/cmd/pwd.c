@@ -1,7 +1,8 @@
-#include "../noeud.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "../noeud.h"
 
 char *pwd(noeud *n)
 {

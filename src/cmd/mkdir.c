@@ -1,29 +1,33 @@
 #include <stdio.h>
 #include <ctype.h>
-#include "../noeud.h"
 #include <string.h>
+#include <assert.h>
+#include <stdlib.h>
+
+#include "../noeud.h"
+
+// regardez le header pour la commentaire
 
 void mkdir(char nom[100], noeud *parent)
 {
-    // check if name is less than 100 characters
     if (strlen(nom) > 100)
     {
-        printf("mkdir: %s: Nom de fichier trop long", nom);
-        return;
+        assert("mkdir: Nom de fichier trop long (référence_de_l'erreur_MKDIR01)\n");
+        exit(EXIT_FAILURE);
     }
 
     for (int i = 0; nom[i]; i++)
     {
         if (!isalnum(nom[i]))
         {
-            printf("La chaîne de caractères contient un caractère non alphanumérique.\n");
-            return;
+            assert("mkdir: La chaîne de caractères contient un caractère non alphanumérique. (référence_de_l'erreur_MKDIR02)\n");
+            exit(EXIT_FAILURE);
         }
     }
 
     if (have_child_by_name(parent, nom))
     {
-        printf("mkdir: %s: Le fichier existe déjà", nom);
+        assert("mkdir: Le fichier existe déjà (référence_de_l'erreur_MKDIR03)");
         return;
     }
 

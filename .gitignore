@@ -1,6 +1,9 @@
 # Build dir
 build
 
+# editor settings
+.idea
+.vscode
 
 # unix filesystem
 .DS_Store

@@ -1,11 +1,9 @@
 #ifndef PATH_H
 #define PATH_H
 
-#include <stdbool.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "../noeud.h"
+
+// les commandes sont explicites
 
 bool isCurrent(char *path);
 bool isLevelUp(char *path);

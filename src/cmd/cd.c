@@ -2,16 +2,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <assert.h>
+
 #include "../noeud.h"
 #include "path.h"
+
+// regardez le header pour la commentaire
 
 noeud *cd(char *path, noeud *dir)
 {
     printf("path: %s\n", path);
     if (dir->fils == NULL && isRelative(path) && !isReturnToRoot(path) && !isCurrent(path) && !isLevelUp(path))
     {
-        printf("This directory is empty\n");
-        return dir;
+        assert("ce répertoire est vide\n");
+        exit(EXIT_FAILURE);
     }
     if (isReturnToRoot(path))
     {
@@ -20,20 +24,20 @@ noeud *cd(char *path, noeud *dir)
     }
     if (isCurrent(path))
     {
-        printf("You are already here\n");
+        // on esy déjà dans le bon répertoire
         return dir;
     }
     if (isLevelUp(path))
     {
         if (dir->pere == NULL)
         {
-            printf("You are already at the root\n");
+            // dir est déjà le répertoire racine
             return dir;
         }
         dir = dir->pere;
         return dir;
     }
-    // split path into tokens
+
     if (isRelative(path))
     {
         char *newPath = malloc(strlen(path) + 1);
@@ -46,13 +50,14 @@ noeud *cd(char *path, noeud *dir)
                 dir = find_child(dir, token);
                 if (dir == NULL)
                 {
-                    printf("No such file or directory\n");
+                    assert("Aucun fichier ou répertoire de ce nom (référence_de_l'erreur_RM01)\n");
+                    exit(EXIT_FAILURE);
                     return dir;
                 }
                 else if (!dir->est_dossier)
                 {
-                    printf("This is not a directory\n");
-                    return NULL;
+                    assert("ce n'est pas un répertoire\n");
+                    exit(EXIT_FAILURE);
                 }
             }
             token = strtok(NULL, "/");
@@ -72,8 +77,8 @@ noeud *cd(char *path, noeud *dir)
                 dir = find_child(dir, token);
                 if (dir == NULL)
                 {
-                    printf("No such file or directory\n");
-                    return dir;
+                    assert("Aucun fichier ou répertoire de ce nom (référence_de_l'erreur_RM01)\n");
+                    exit(EXIT_FAILURE);
                 }
             }
             token = strtok(NULL, "/");

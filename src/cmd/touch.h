@@ -3,7 +3,10 @@
 
 #include "../noeud.h"
 
-// Creates a new file with the specified name and adds it to the specified parent directory.
+/*
+La fonction "touch" crée un nouveau nœud avec un nom de fichier donné, l'associe au nœud parent dans une structure d'arborescence, et l'ajoute comme enfant.
+*/
+
 void touch(noeud *parent, char *filename);
 
-#endif // TOUCH_H
+#endif
