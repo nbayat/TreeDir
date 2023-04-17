@@ -10,6 +10,7 @@
 #include "cmd/mkdir.h"
 #include "cmd/rm.h"
 #include "cmd/cp.h"
+#include "cmd/mv.h"
 
 #define MAX_CMD_LEN 100
 
@@ -84,6 +85,13 @@ int main(int argc, char *argv[])
             char *arg2 = strtok(NULL, " ");
             printf("cp %s %s\n", arg1, arg2);
             cp(arg1, arg2, current_dir);
+        }
+        else if (strcmp(arg, "mv") == 0)
+        {
+            char *arg1 = strtok(NULL, " ");
+            char *arg2 = strtok(NULL, " ");
+            printf("mv %s %s\n", arg1, arg2);
+            mv(arg1, arg2, current_dir);
         }
         else
         {

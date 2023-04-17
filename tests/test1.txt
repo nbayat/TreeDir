@@ -4,7 +4,7 @@ ls
 cd test1
 mkdir test1Inside
 ls
-cp test1Inside ..
+mv test1Inside ..
 ls
 cd ..
 ls

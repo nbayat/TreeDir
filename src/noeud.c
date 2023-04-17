@@ -289,6 +289,37 @@ noeud *duplicate_node(noeud *node)
     return new_node;
 }
 
+noeud *remove_child_from_parent(noeud *parent, noeud *child)
+{
+    // Find the child node in the parent's list of children
+    liste_noeud *prev = NULL;
+    liste_noeud *curr = parent->fils;
+    while (curr != NULL)
+    {
+        if (curr->no == child)
+        {
+            break;
+        }
+        prev = curr;
+        curr = curr->succ;
+    }
+    // si le noeud enfant n'est pas trouve, on ne fait rien
+    if (curr == NULL)
+    {
+        return NULL;
+    }
+    // supprime le noeud enfant de la liste des noeuds enfants du noeud parent
+    if (prev == NULL)
+    {
+        parent->fils = curr->succ;
+    }
+    else
+    {
+        prev->succ = curr->succ;
+    }
+    return curr->no;
+}
+
 // libere la memoire allouee pour un noeud et ses enfants recursivement
 void free_node(noeud *node)
 {
