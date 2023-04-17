@@ -19,7 +19,7 @@ noeud* create_node(bool est_dossier, char nom[100], noeud* pere, liste_noeud* fi
     // si le noeud a un parent, on definit son noeud racine comme etant le noeud 
     // racine du parent, sinon on definit son noeud racine comme etant lui meme
     if (pere != NULL) {
-        node->pere = pere->pere;
+        node->pere = pere;
     } else {
         node->pere = node;
     }
