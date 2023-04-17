@@ -2,7 +2,6 @@
 build
 
 # editor settings
-.idea
 .vscode
 
 # unix filesystem
