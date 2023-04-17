@@ -2,6 +2,7 @@
     "files.associations": {
         "noeud.h": "c",
         "ctype.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "string.h": "c"
     }
 }
