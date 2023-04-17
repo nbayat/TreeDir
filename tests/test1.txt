@@ -1,6 +1,10 @@
-touch nima
+mkdir test1
+mkdir test2
 ls
 cd test1
+mkdir test1Inside
 ls
-rm test2
+cp test1Inside ..
+ls
+cd ..
 ls

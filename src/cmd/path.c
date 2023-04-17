@@ -1,39 +1,68 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <stdbool.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "../noeud.h"
-#include "path.h"
 
-noeud *cd(char *path, noeud *dir)
+bool isCurrent(char *path);
+bool isLevelUp(char *path);
+bool isRelative(char *path);
+bool isReturnToRoot(char *path);
+
+bool isReturnToRoot(char *path)
 {
-    printf("path: %s\n", path);
-    if (dir->fils == NULL && isRelative(path) && !isReturnToRoot(path) && !isCurrent(path) && !isLevelUp(path))
+    if (path[0] == '/' && path[1] == '\0')
     {
-        printf("This directory is empty\n");
-        return dir;
+        return true;
     }
-    if (isReturnToRoot(path))
+    if (path[0] == '\0')
     {
-        dir = dir->racine;
-        return dir;
+        return true;
     }
+    return false;
+}
+
+bool isCurrent(char *path)
+{
+    if (path[0] == '.' && path[1] == '\0')
+    {
+        return true;
+    }
+    return false;
+}
+
+bool isLevelUp(char *path)
+{
+    if (path[0] == '.' && path[1] == '.' && path[2] == '\0')
+    {
+        return true;
+    }
+    return false;
+}
+
+bool isRelative(char *path)
+{
+    if (path[0] == '/')
+    {
+        return false;
+    }
+    return true;
+}
+
+bool isValidPath(char *path, noeud *dir)
+{
     if (isCurrent(path))
     {
-        printf("You are already here\n");
-        return dir;
+        return true;
     }
     if (isLevelUp(path))
     {
-        if (dir->pere == NULL)
-        {
-            printf("You are already at the root\n");
-            return dir;
-        }
-        dir = dir->pere;
-        return dir;
+        return true;
     }
-    // split path into tokens
+    if (isReturnToRoot(path))
+    {
+        return true;
+    }
     if (isRelative(path))
     {
         char *newPath = malloc(strlen(path) + 1);
@@ -47,12 +76,7 @@ noeud *cd(char *path, noeud *dir)
                 if (dir == NULL)
                 {
                     printf("No such file or directory\n");
-                    return dir;
-                }
-                else if (!dir->est_dossier)
-                {
-                    printf("This is not a directory\n");
-                    return NULL;
+                    return false;
                 }
             }
             token = strtok(NULL, "/");
@@ -61,6 +85,7 @@ noeud *cd(char *path, noeud *dir)
     else if (!isRelative(path))
     {
         char *newPath = malloc(strlen(path) + 1);
+        // ignore the first character
         newPath = newPath + 1;
         strcpy(newPath, path);
         dir = dir->racine;
@@ -73,11 +98,11 @@ noeud *cd(char *path, noeud *dir)
                 if (dir == NULL)
                 {
                     printf("No such file or directory\n");
-                    return dir;
+                    return false;
                 }
             }
             token = strtok(NULL, "/");
         }
     }
-    return dir;
+    return true;
 }

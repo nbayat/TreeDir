@@ -9,6 +9,7 @@
 #include "cmd/pwd.h"
 #include "cmd/mkdir.h"
 #include "cmd/rm.h"
+#include "cmd/cp.h"
 
 #define MAX_CMD_LEN 100
 
@@ -32,13 +33,6 @@ int main(int argc, char *argv[])
 
     // mettre le répertoire courant à la racine
     noeud *current_dir = root;
-
-    add_child(current_dir, create_node(true, "test", current_dir, NULL));
-
-    noeud *test1 = create_node(true, "test1", current_dir, NULL);
-    add_child(current_dir, test1);
-    noeud *test2 = create_node(true, "test2", test1, NULL);
-    add_child(test1, test2);
 
     // boucle sur le fichier de commandes et exécute chaque commande
     char cmd[MAX_CMD_LEN];
@@ -83,6 +77,13 @@ int main(int argc, char *argv[])
         {
             arg = strtok(NULL, " ");
             rm(arg, current_dir);
+        }
+        else if (strcmp(arg, "cp") == 0)
+        {
+            char *arg1 = strtok(NULL, " ");
+            char *arg2 = strtok(NULL, " ");
+            printf("cp %s %s\n", arg1, arg2);
+            cp(arg1, arg2, current_dir);
         }
         else
         {

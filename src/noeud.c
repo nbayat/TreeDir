@@ -271,6 +271,24 @@ noeud *find_node(noeud *root, char nom[100])
     return NULL;
 }
 
+noeud *duplicate_node(noeud *node)
+{
+    // alloue la memoire pour le nouveau noeud
+    noeud *new_node = malloc(sizeof(noeud));
+    // copie les donnees du noeud courant dans le nouveau noeud
+    strcpy(new_node->nom, node->nom);
+    new_node->est_dossier = node->est_dossier;
+    new_node->fils = NULL;
+    // copie les noeuds enfants du noeud courant dans le nouveau noeud
+    liste_noeud *curr = node->fils;
+    while (curr != NULL)
+    {
+        add_child(new_node, duplicate_node(curr->no));
+        curr = curr->succ;
+    }
+    return new_node;
+}
+
 // libere la memoire allouee pour un noeud et ses enfants recursivement
 void free_node(noeud *node)
 {

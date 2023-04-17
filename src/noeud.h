@@ -33,6 +33,7 @@ noeud *find_node(noeud *root, char nom[100]);
 bool have_child(noeud *parent, noeud *child);
 bool have_child_by_name(noeud *parent, char nom[100]);
 void remove_child_by_name(noeud *parent, char nom[100]);
+noeud *duplicate_node(noeud *node);
 noeud *create_root_node();
 
 #endif
