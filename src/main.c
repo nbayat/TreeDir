@@ -7,6 +7,7 @@
 #include "cmd/print.h"
 #include "cmd/cd.h"
 #include "cmd/pwd.h"
+#include "cmd/mkdir.h"
 
 #define MAX_CMD_LEN 100
 
@@ -71,6 +72,11 @@ int main(int argc, char *argv[])
             char *pwd_output = pwd(current_dir);
             printf("%s\n", pwd_output);
             free(pwd_output);
+        }
+        else if (strcmp(arg, "mkdir") == 0)
+        {
+            arg = strtok(NULL, " ");
+            mkdir(arg, current_dir);
         }
         else
         {

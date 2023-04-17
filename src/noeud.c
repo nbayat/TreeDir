@@ -191,6 +191,20 @@ bool have_child(noeud *parent, noeud *child)
     return false;
 }
 
+bool have_child_by_name(noeud *parent, char nom[100])
+{
+    liste_noeud *curr = parent->fils;
+    while (curr != NULL)
+    {
+        if (strcmp(curr->no->nom, nom) == 0)
+        {
+            return true;
+        }
+        curr = curr->succ;
+    }
+    return false;
+}
+
 noeud *find_child(noeud *parent, char nom[100])
 {
     liste_noeud *curr = parent->fils;

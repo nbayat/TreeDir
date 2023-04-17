@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "noeud.h": "c",
+        "ctype.h": "c"
+    }
+}

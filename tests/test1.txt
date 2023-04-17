@@ -6,3 +6,5 @@ pwd
 cd test2
 ls
 pwd
+mkdir testdir
+ls

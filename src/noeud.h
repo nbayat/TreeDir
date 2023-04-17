@@ -31,7 +31,7 @@ void print_children(noeud *node);
 noeud *find_child(noeud *parent, char nom[100]);
 noeud *find_node(noeud *root, char nom[100]);
 bool have_child(noeud *parent, noeud *child);
-
+bool have_child_by_name(noeud *parent, char nom[100]);
 noeud *create_root_node();
 
 #endif
