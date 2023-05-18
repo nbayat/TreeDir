@@ -1,11 +1,22 @@
-mkdir test1
-mkdir test2
+mkdir Rep1
+mkdir Rep2
+mkdir Rep3
 ls
-cd test1
-mkdir test1Inside
-ls
-mv test1Inside ..
-ls
+cd Rep1
+mkdir Rep11
+mkdir Rep12
+cd Rep11
+touch file111
 cd ..
-touch testTOUCH
+cd Rep12
+touch file121
+touch file122
+pwd
 ls
+cd
+cd Rep2
+touch file21
+touch file22
+cd /Rep1/Rep11
+ls
+print

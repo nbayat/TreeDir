@@ -1,0 +1,11 @@
+mkdir test1
+mkdir test2
+ls
+cd test1
+mkdir test1Inside
+ls
+mv test1Inside ..
+ls
+cd ..
+touch testTOUCH
+ls
