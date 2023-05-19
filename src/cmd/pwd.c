@@ -23,13 +23,16 @@ char *pwd(noeud *n)
     char *path = malloc(1000);
     while (n != n->racine)
     {
-        char *tmp = malloc(1000);
+        char *tmp = malloc(100);
         strcpy(tmp, path);
         strcpy(path, "/");
         strcat(path, n->nom);
         strcat(path, tmp);
         free(tmp);
-        n = n->pere;
+        if (n->pere != NULL)
+        {
+            n = n->pere;
+        }
     }
     return path;
 }

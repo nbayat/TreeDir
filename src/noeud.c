@@ -12,7 +12,7 @@ noeud *create_node(bool est_dossier, char nom[100], noeud *pere, liste_noeud *fi
     noeud *node = (noeud *)malloc(sizeof(noeud));
     if (node == NULL)
     {
-        assert("Memory allocation failed\n");
+        printf("le mémoire n'est pas alloué\n");
         exit(EXIT_FAILURE);
     }
     // Initialise les champs du noeud
@@ -114,7 +114,8 @@ void remove_child(noeud *parent, noeud *child)
     {
         prev->succ = curr->succ;
     }
-    free(curr);
+    // free(curr);
+    free_node(curr->no);
 }
 
 void remove_child_by_name(noeud *parent, char nom[100])
@@ -182,31 +183,46 @@ void print_noeud(noeud *node)
     }
     else
     {
-        printf("pere: %s, ", node->pere->nom);
+        printf("pere: %s %s ", node->pere->nom, node->est_dossier ? ", " : "");
     }
 
     // Print nb de fils
     if (node->est_dossier)
     {
-        printf("%d fils: , ", nb_children(node));
+        if (nb_children(node) == 0)
+        {
+            printf("0 fils");
+        }
+        else if (nb_children(node) != 0)
+        {
+            printf("%d fils: ", nb_children(node));
+        }
     }
 
-    // Print nom et type de chaque fils
     liste_noeud *child = node->fils;
-    while (child != NULL)
+    if (nb_children(node) < 20)
     {
-        printf("%s", child->no->nom);
-        if (child->no->est_dossier)
+        // Print nom et type de chaque fils
+        while (child != NULL)
         {
-            printf("(D) ");
+            printf("%s", child->no->nom);
+            if (child->no->est_dossier)
+            {
+                printf("(D) ");
+            }
+            else
+            {
+                printf("(F) ");
+            }
+            child = child->succ;
         }
-        else
-        {
-            printf("(F) ");
-        }
-        child = child->succ;
+        printf("\n");
     }
-    printf("\n");
+    else
+    {
+        // ne pas afficher les noms des fils si il y en a trop (plus de 20)
+        printf("\n");
+    }
 
     // print les fils recursivement
     child = node->fils;

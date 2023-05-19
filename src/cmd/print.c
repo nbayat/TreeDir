@@ -24,9 +24,10 @@ void printNo(noeud *n)
 
     if (n == NULL)
     {
-        printf("erreur lors de la fonction print, le noeud est null \n");
+        printf("erreur dans la fonction print, le noeud est null \n");
         exit(EXIT_FAILURE);
     }
-    printf("[print]:\n");
+    printf("\n[print]:\n");
     print_noeud(n);
+    printf("\n");
 }

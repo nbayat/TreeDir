@@ -40,8 +40,8 @@ void mkdir(char nom[100], noeud *parent)
 
     if (have_child_by_name(parent, nom))
     {
-        printf("mkdir: Le repo existe déjà ");
-        return;
+        printf("mkdir: Le repo existe déjà\n");
+        exit(EXIT_FAILURE);
     }
 
     noeud *new_node = create_node(true, nom, parent, NULL);

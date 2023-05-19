@@ -4,13 +4,18 @@
 #include <stdio.h>
 #include "../noeud.h"
 
+// regardez le header pour la commentaire
+
+// declaration des fonctions
 bool isCurrent(char *path);
 bool isLevelUp(char *path);
 bool isRelative(char *path);
 bool isReturnToRoot(char *path);
 bool is_one_word(char *path);
-
-// regardez le header pour la commentaire
+bool isValidPath(char *path, noeud *dir);
+char *extract_last_word_from_path(char *path);
+char *exclude_last_word_from_path(char *path);
+bool isSubPath(char *path, char *subPath);
 
 bool isReturnToRoot(char *path)
 {
@@ -141,9 +146,9 @@ char *exclude_last_word_from_path(char *path)
     char *newPath2 = malloc(newPathLength + 1);
     if (!isRelative(path))
     {
-        // strcpy(newPath2, "/");
-        // strncat(newPath2, path, newPathLength);
-        strncpy(newPath2, path, newPathLength);
+        strcpy(newPath2, "/");
+        strncat(newPath2, path, newPathLength);
+        // strncpy(newPath2, path, newPathLength);
     }
     else
     {
@@ -163,6 +168,10 @@ bool is_one_word(char *path)
 
 bool isSubPath(char *path, char *subPath)
 {
+    if (strlen(path) < strlen(subPath))
+    {
+        return false;
+    }
     if (strcmp(path, subPath) == 0)
     {
         return true;
@@ -188,5 +197,6 @@ bool isSubPath(char *path, char *subPath)
         token = strtok(NULL, "/");
         token2 = strtok(NULL, "/");
     }
+
     return false;
 }

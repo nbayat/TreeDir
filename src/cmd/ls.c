@@ -28,6 +28,7 @@ void ls(noeud *dir)
             printf(" depuis root\n");
         }
     }
-    printf("[ls]: ");
+    printf("[ls]: \n");
     print_children(dir);
+    printf("\n");
 }

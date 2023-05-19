@@ -5,13 +5,13 @@
 
 #include "../noeud.h"
 #include "path.h"
-
 #include "../debug.h"
 
 // regardez le header pour la commentaire
 
 noeud *cd(char *path, noeud *dir)
 {
+    // debug mode
     if (DEBUG)
     {
         printf("! DEBUG ! -> cd %s", path);
@@ -30,7 +30,7 @@ noeud *cd(char *path, noeud *dir)
     }
     if (isCurrent(path))
     {
-        // on esy déjà depuis le bon répertoire
+        // on esy déjà depuis le bon répertoire ex: cd .
         return dir;
     }
     if (isLevelUp(path))
@@ -49,8 +49,12 @@ noeud *cd(char *path, noeud *dir)
 
     if (isRelative(path))
     {
-
         char *newPath = malloc(strlen(path) + 1);
+        if (newPath == NULL)
+        {
+            printf("Erreur malloc dans la commande cd\n");
+            exit(EXIT_FAILURE);
+        }
         strcpy(newPath, path);
         char *token = strtok(newPath, "/");
         while (token != NULL)
@@ -62,7 +66,6 @@ noeud *cd(char *path, noeud *dir)
                 {
                     printf("Aucun fichier ou répertoire de ce nom\n");
                     exit(EXIT_FAILURE);
-                    return dir;
                 }
                 else if (!dir->est_dossier)
                 {
@@ -76,6 +79,11 @@ noeud *cd(char *path, noeud *dir)
     else if (!isRelative(path))
     {
         char *newPath = malloc(strlen(path) + 1);
+        if (newPath == NULL)
+        {
+            printf("Erreur malloc dans la commande cd\n");
+            exit(EXIT_FAILURE);
+        }
         newPath = newPath + 1;
         strcpy(newPath, path);
         dir = dir->racine;
@@ -89,7 +97,6 @@ noeud *cd(char *path, noeud *dir)
                 {
                     printf("Aucun fichier ou répertoire de ce nom \n");
                     exit(EXIT_FAILURE);
-                    return dir;
                 }
                 else if (!dir->est_dossier)
                 {
@@ -100,6 +107,5 @@ noeud *cd(char *path, noeud *dir)
             token = strtok(NULL, "/");
         }
     }
-
     return dir;
 }

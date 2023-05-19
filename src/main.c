@@ -28,6 +28,11 @@ int main(int argc, char *argv[])
     {
         printf("! Attention: debug mode !\n");
     }
+    else
+    {
+        printf("! Attention: running non debug ... !\n");
+    }
+
     if (argc != 2)
     {
         printf("Usage: %s <command_file>\n", argv[0]);
@@ -80,7 +85,7 @@ int main(int argc, char *argv[])
         else if (strcmp(arg, "pwd") == 0)
         {
             char *pwd_output = pwd(current_dir);
-            printf("[pwd]: %s\n", pwd_output);
+            printf("[pwd]: \n%s\n\n", pwd_output);
             free(pwd_output);
         }
         else if (strcmp(arg, "mkdir") == 0)
