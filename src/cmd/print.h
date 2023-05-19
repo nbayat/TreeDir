@@ -8,6 +8,6 @@
 // sinon elle appelle la fonction print_noeud de noeud.h
 // qui s'occupe de l'affichage recursivement
 
-void print_noeud(noeud *n);
+void printNo(noeud *n);
 
 #endif

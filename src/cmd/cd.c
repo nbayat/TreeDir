@@ -7,20 +7,28 @@
 #include "../noeud.h"
 #include "path.h"
 
+#include "../debug.h"
+
 // regardez le header pour la commentaire
 
 noeud *cd(char *path, noeud *dir)
 {
-    printf("path: %s\n", path);
-    if (dir->fils == NULL && isRelative(path) && !isReturnToRoot(path) && !isCurrent(path) && !isLevelUp(path))
+    if (DEBUG)
     {
-        assert("ce répertoire est vide\n");
-        exit(EXIT_FAILURE);
+        printf("! DEBUG ! -> cd %s", path);
+        if (strcmp(dir->nom, "") != 0)
+        {
+            printf(" dans %s\n", dir->nom);
+        }
+        else
+        {
+            printf(" dans root\n");
+        }
     }
     if (isReturnToRoot(path))
     {
-        dir = dir->racine;
-        return dir;
+        // dir = dir->racine;
+        return dir->racine;
     }
     if (isCurrent(path))
     {
@@ -29,17 +37,22 @@ noeud *cd(char *path, noeud *dir)
     }
     if (isLevelUp(path))
     {
-        if (dir->pere == NULL)
+        if (dir->racine == dir)
         {
             // dir est déjà le répertoire racine
             return dir;
         }
-        dir = dir->pere;
-        return dir;
+        return dir->pere;
+    }
+    if (dir->fils == NULL && isRelative(path) && !isReturnToRoot(path) && !isCurrent(path) && !isLevelUp(path))
+    {
+        assert("ce répertoire est vide et ne contient pas un pere ou root\n");
+        exit(EXIT_FAILURE);
     }
 
     if (isRelative(path))
     {
+
         char *newPath = malloc(strlen(path) + 1);
         strcpy(newPath, path);
         char *token = strtok(newPath, "/");
@@ -77,12 +90,11 @@ noeud *cd(char *path, noeud *dir)
                 dir = find_child(dir, token);
                 if (dir == NULL)
                 {
-                    assert("Aucun fichier ou répertoire de ce nom (référence_de_l'erreur_RM01)\n");
-                    exit(EXIT_FAILURE);
                 }
             }
             token = strtok(NULL, "/");
         }
     }
+
     return dir;
 }

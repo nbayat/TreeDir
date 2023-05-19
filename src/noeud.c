@@ -20,6 +20,14 @@ noeud *create_node(bool est_dossier, char nom[100], noeud *pere, liste_noeud *fi
     strncpy(node->nom, nom, sizeof(node->nom));
     // si le noeud a un parent, on definit son noeud racine comme etant le noeud
     // racine du parent, sinon on definit son noeud racine comme etant lui meme
+    if (pere == NULL)
+    {
+        node->racine = node;
+    }
+    else
+    {
+        node->racine = pere->racine;
+    }
     if (pere != NULL)
     {
         node->pere = pere;
@@ -36,6 +44,7 @@ noeud *create_node(bool est_dossier, char nom[100], noeud *pere, liste_noeud *fi
     {
         node->fils = NULL;
     }
+
     return node;
 }
 
@@ -43,6 +52,7 @@ noeud *create_node(bool est_dossier, char nom[100], noeud *pere, liste_noeud *fi
 noeud *create_root_node()
 {
     noeud *root = create_node(true, "", NULL, NULL);
+    // la fonction *create_node va mettre les champs null pour le noeud racine vers lui meme automatiquement
     return root;
 }
 
@@ -153,11 +163,33 @@ int nb_children(noeud *node)
 void print_noeud(noeud *node)
 {
     // Print nom
-    printf("%s ", node->nom);
+    if (node->racine == node)
+    {
+        printf("Noeud / ");
+    }
+    else
+    {
+        printf("Noeud %s ", node->nom);
+    }
+
+    // print type
+    printf("%s, ", node->est_dossier ? "(D) " : "(F) ");
+
+    // print pere
+    if (node->pere == node->racine)
+    {
+        printf("pere: /, ");
+    }
+    else
+    {
+        printf("pere: %s, ", node->pere->nom);
+    }
 
     // Print nb de fils
-    int num_children = nb_children(node);
-    printf("(%d): ", num_children);
+    if (node->est_dossier)
+    {
+        printf("%d fils: , ", nb_children(node));
+    }
 
     // Print nom et type de chaque fils
     liste_noeud *child = node->fils;
@@ -170,7 +202,7 @@ void print_noeud(noeud *node)
         }
         else
         {
-            printf(" ");
+            printf("(F) ");
         }
         child = child->succ;
     }
@@ -180,10 +212,7 @@ void print_noeud(noeud *node)
     child = node->fils;
     while (child != NULL)
     {
-        if (child->no->est_dossier)
-        {
-            print_noeud(child->no);
-        }
+        print_noeud(child->no);
         child = child->succ;
     }
 }
@@ -271,7 +300,7 @@ noeud *find_node(noeud *root, char nom[100])
     return NULL;
 }
 
-noeud *duplicate_node(noeud *node)
+noeud *duplicate_node(noeud *node, noeud *pere)
 {
     // alloue la memoire pour le nouveau noeud
     noeud *new_node = malloc(sizeof(noeud));
@@ -279,14 +308,27 @@ noeud *duplicate_node(noeud *node)
     strcpy(new_node->nom, node->nom);
     new_node->est_dossier = node->est_dossier;
     new_node->fils = NULL;
+    new_node->pere = pere;
+    new_node->racine = node->racine;
     // copie les noeuds enfants du noeud courant dans le nouveau noeud
     liste_noeud *curr = node->fils;
+    // duplicate liste_noeud
     while (curr != NULL)
     {
-        add_child(new_node, duplicate_node(curr->no));
+        add_child(new_node, duplicate_node(curr->no, new_node));
         curr = curr->succ;
     }
     return new_node;
+}
+
+void updateParentNameForChild(noeud *node, char nom[100])
+{
+    liste_noeud *curr = node->fils;
+    while (curr != NULL)
+    {
+        strcpy(curr->no->pere->nom, nom);
+        curr = curr->succ;
+    }
 }
 
 noeud *remove_child_from_parent(noeud *parent, noeud *child)

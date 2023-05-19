@@ -8,11 +8,24 @@
 #include "../noeud.h"
 #include "cd.h"
 #include "cp.h"
+#include "../debug.h"
 
 // regardez le header pour la commentaire
 
 void mv(char *source, char *dest, noeud *dir)
 {
+    if (DEBUG)
+    {
+        printf("! DEBUG ! -> mv %s %s", source, dest);
+        if (strcmp(dir->nom, "") != 0)
+        {
+            printf(" dans %s\n", dir->nom);
+        }
+        else
+        {
+            printf(" dans root\n");
+        }
+    }
     if (!isValidPath(source, dir))
     {
         assert("Chemin invalide (référence_de_l'erreur_MV01)\n");

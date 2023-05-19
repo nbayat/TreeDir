@@ -10,5 +10,8 @@ bool isLevelUp(char *path);
 bool isRelative(char *path);
 bool isReturnToRoot(char *path);
 bool isValidPath(char *path, noeud *dir);
+char *extract_last_word_from_path(char *path);
+char *exclude_last_word_from_path(char *path);
+bool is_one_word(char *path);
 
 #endif

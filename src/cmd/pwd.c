@@ -3,17 +3,33 @@
 #include <string.h>
 
 #include "../noeud.h"
+#include "../debug.h"
 
 char *pwd(noeud *n)
 {
-    char *path = malloc(100);
-    if (n->pere == n)
+    if (DEBUG)
     {
-        return path;
+        printf("! DEBUG ! -> pwd");
+        if (strcmp(n->nom, "") != 0)
+        {
+            printf(" dans %s\n", n->nom);
+        }
+        else
+        {
+            printf(" dans root\n");
+        }
     }
-    printf(" %s, ", n->pere->nom);
-    path = pwd(n->pere);
-    strcat(path, "/");
-    strcat(path, n->nom);
+
+    char *path = malloc(1000);
+    while (n != n->racine)
+    {
+        char *tmp = malloc(1000);
+        strcpy(tmp, path);
+        strcpy(path, "/");
+        strcat(path, n->nom);
+        strcat(path, tmp);
+        free(tmp);
+        n = n->pere;
+    }
     return path;
 }

@@ -33,8 +33,9 @@ noeud *find_node(noeud *root, char nom[100]);
 bool have_child(noeud *parent, noeud *child);
 bool have_child_by_name(noeud *parent, char nom[100]);
 void remove_child_by_name(noeud *parent, char nom[100]);
-noeud *duplicate_node(noeud *node);
+noeud *duplicate_node(noeud *node, noeud *pere);
 noeud *remove_child_from_parent(noeud *parent, noeud *child);
 noeud *create_root_node();
+void updateParentNameForChild(noeud *node, char nom[100]);
 
 #endif

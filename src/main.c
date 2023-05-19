@@ -17,11 +17,17 @@
 #include "cmd/rm.h"
 #include "cmd/cp.h"
 #include "cmd/mv.h"
+// debug mode
+#include "debug.h"
 
 #define MAX_CMD_LEN 100
 
 int main(int argc, char *argv[])
 {
+    if (DEBUG)
+    {
+        printf("! Attention: debug mode !\n");
+    }
     if (argc != 2)
     {
         printf("Usage: %s <command_file>\n", argv[0]);
@@ -63,7 +69,8 @@ int main(int argc, char *argv[])
         }
         else if (strcmp(arg, "print") == 0)
         {
-            print_noeud(current_dir);
+            // print_noeud(current_dir);
+            printNo(current_dir->racine);
         }
         else if (strcmp(arg, "cd") == 0)
         {
@@ -73,7 +80,7 @@ int main(int argc, char *argv[])
         else if (strcmp(arg, "pwd") == 0)
         {
             char *pwd_output = pwd(current_dir);
-            printf("%s\n", pwd_output);
+            printf("[pwd]: %s\n", pwd_output);
             free(pwd_output);
         }
         else if (strcmp(arg, "mkdir") == 0)
@@ -90,14 +97,14 @@ int main(int argc, char *argv[])
         {
             char *arg1 = strtok(NULL, " ");
             char *arg2 = strtok(NULL, " ");
-            printf("cp %s %s\n", arg1, arg2);
+            // printf("cp %s %s\n", arg1, arg2);
             cp(arg1, arg2, current_dir);
         }
         else if (strcmp(arg, "mv") == 0)
         {
             char *arg1 = strtok(NULL, " ");
             char *arg2 = strtok(NULL, " ");
-            printf("mv %s %s\n", arg1, arg2);
+            // printf("mv %s %s\n", arg1, arg2);
             mv(arg1, arg2, current_dir);
         }
         else

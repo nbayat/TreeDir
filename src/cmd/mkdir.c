@@ -6,10 +6,24 @@
 
 #include "../noeud.h"
 
+#include "../debug.h"
+
 // regardez le header pour la commentaire
 
 void mkdir(char nom[100], noeud *parent)
 {
+    if (DEBUG)
+    {
+        printf("! DEBUG ! -> mkdir %s", nom);
+        if (strcmp(parent->nom, "") != 0)
+        {
+            printf(" dans %s\n", parent->nom);
+        }
+        else
+        {
+            printf("\n");
+        }
+    }
     if (strlen(nom) > 100)
     {
         assert("mkdir: Nom de fichier trop long (référence_de_l'erreur_MKDIR01)\n");

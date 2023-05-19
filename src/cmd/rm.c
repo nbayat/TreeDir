@@ -5,11 +5,25 @@
 
 #include "cd.h"
 #include "../noeud.h"
+#include "../debug.h"
 
 // regardez le header pour la commentaire
 
 void rm(char *path, noeud *curr_dir)
 {
+    if (DEBUG)
+    {
+        printf("! DEBUG ! -> rm %s", path);
+        if (strcmp(curr_dir->nom, "") != 0)
+        {
+            printf(" dans %s\n", curr_dir->nom);
+        }
+        else
+        {
+            printf(" dans root\n");
+        }
+    }
+
     curr_dir = cd(path, curr_dir);
     if (curr_dir == NULL)
     {
