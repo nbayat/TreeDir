@@ -12,7 +12,7 @@ void ls(noeud *dir)
     {
         if (DEBUG)
         {
-            printf("ce répertoire est vide\n");
+            printf("Erreur: ce répertoire est vide\n");
         }
         return;
     }

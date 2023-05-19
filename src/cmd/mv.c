@@ -33,14 +33,14 @@ void mv(char *source, char *dest, noeud *dir)
     dir = cd(source, dir);
     if (dir == NULL)
     {
-        printf("Le chemin n'est pas valide\n");
+        printf("Erreur: Le chemin n'est pas valide\n");
         exit(EXIT_FAILURE);
     }
     noeud *tmp = malloc(sizeof(noeud));
     tmp = remove_child_from_parent(dir->pere, dir);
     if (tmp == NULL)
     {
-        printf("Le chemin n'est pas valide\n");
+        printf("Erreur: Le chemin n'est pas valide\n");
         exit(EXIT_FAILURE);
     }
     dir = cd(dest, dir);

@@ -25,7 +25,7 @@ void mkdir(char nom[100], noeud *parent)
     }
     if (strlen(nom) > 100)
     {
-        printf("mkdir: Nom de fichier trop long \n");
+        printf("Erreur: mkdir: Nom de fichier trop long \n");
         exit(EXIT_FAILURE);
     }
 
@@ -33,14 +33,14 @@ void mkdir(char nom[100], noeud *parent)
     {
         if (!isalnum(nom[i]))
         {
-            printf("mkdir: La chaîne de caractères contient un caractère non alphanumérique. \n");
+            printf("Erreur: mkdir: La chaîne de caractères contient un caractère non alphanumérique. \n");
             exit(EXIT_FAILURE);
         }
     }
 
     if (have_child_by_name(parent, nom))
     {
-        printf("mkdir: Le repo existe déjà\n");
+        printf("Erreur: mkdir: Le repo existe déjà\n");
         exit(EXIT_FAILURE);
     }
 

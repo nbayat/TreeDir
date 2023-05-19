@@ -33,14 +33,14 @@ void touch(noeud *parent, char *filename)
     {
         if (!isalnum(filename[i]))
         {
-            printf("mkdir: La chaîne de caractères contient un caractère non alphanumérique. \n");
+            printf("Erreur: mkdir: La chaîne de caractères contient un caractère non alphanumérique. \n");
             exit(EXIT_FAILURE);
         }
     }
 
     if (have_child_by_name(parent, filename))
     {
-        printf("mkdir: Le fichier existe déjà ");
+        printf("Erreur: mkdir: Le fichier existe déjà ");
         return;
     }
 

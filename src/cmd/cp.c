@@ -31,7 +31,7 @@ void cp(char *source, char *dest, noeud *dir)
 
     if (!isValidPath(source, dir))
     {
-        printf("Le chemin source n'est pas valide\n");
+        printf("Erreur: Le chemin source n'est pas valide\n");
         exit(EXIT_FAILURE);
     }
 
@@ -75,19 +75,19 @@ void cp(char *source, char *dest, noeud *dir)
 
     if (dir == NULL)
     {
-        printf("Le chemin n'est pas valide \n");
+        printf(" Erreur:Le chemin n'est pas valide \n");
         exit(EXIT_FAILURE);
     }
     // path de dest est un sous-path de source, (invalide)
     if (isSubPath(pwd(dir), pwd(sourceNoeud)))
     {
-        printf("Vous ne pouvez pas copier le répertoire dans lequel vous êtes dans\n");
+        printf("Erreur: Vous ne pouvez pas copier un répertoire dans son sous-répertoire.\n");
         exit(EXIT_FAILURE);
     }
     // déjà existant
     if (have_child_by_name(dir, destNom) == true)
     {
-        printf("Un fichier ou répertoire de ce nom existe déjà\n");
+        printf("Erreur: Un fichier ou répertoire de ce nom existe déjà\n");
         exit(EXIT_FAILURE);
     }
 

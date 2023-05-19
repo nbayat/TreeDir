@@ -43,7 +43,7 @@ noeud *cd(char *path, noeud *dir)
     }
     if (dir->fils == NULL && isRelative(path) && !isReturnToRoot(path) && !isCurrent(path) && !isLevelUp(path))
     {
-        printf("ce répertoire est vide et le path relative n'est pas valide\n");
+        printf("Erreur: ce répertoire est vide et le path relative n'est pas valide\n");
         exit(EXIT_FAILURE);
     }
 
@@ -52,7 +52,7 @@ noeud *cd(char *path, noeud *dir)
         char *newPath = malloc(strlen(path) + 1);
         if (newPath == NULL)
         {
-            printf("Erreur malloc dans la commande cd\n");
+            printf("Erreur: Erreur malloc dans la commande cd\n");
             exit(EXIT_FAILURE);
         }
         strcpy(newPath, path);
@@ -64,12 +64,12 @@ noeud *cd(char *path, noeud *dir)
                 dir = find_child(dir, token);
                 if (dir == NULL)
                 {
-                    printf("Aucun fichier ou répertoire de ce nom\n");
+                    printf("Erreur: Aucun fichier ou répertoire de ce nom\n");
                     exit(EXIT_FAILURE);
                 }
                 else if (!dir->est_dossier)
                 {
-                    printf("ce n'est pas un répertoire\n");
+                    printf("Erreur: ce n'est pas un répertoire\n");
                     exit(EXIT_FAILURE);
                 }
             }
@@ -81,7 +81,7 @@ noeud *cd(char *path, noeud *dir)
         char *newPath = malloc(strlen(path) + 1);
         if (newPath == NULL)
         {
-            printf("Erreur malloc dans la commande cd\n");
+            printf("Erreur: malloc dans la commande cd\n");
             exit(EXIT_FAILURE);
         }
         newPath = newPath + 1;
@@ -95,12 +95,12 @@ noeud *cd(char *path, noeud *dir)
                 dir = find_child(dir, token);
                 if (dir == NULL)
                 {
-                    printf("Aucun fichier ou répertoire de ce nom \n");
+                    printf("Erreur: Aucun fichier ou répertoire de ce nom \n");
                     exit(EXIT_FAILURE);
                 }
                 else if (!dir->est_dossier)
                 {
-                    printf("ce n'est pas un répertoire\n");
+                    printf("Erreur: ce n'est pas un répertoire\n");
                     exit(EXIT_FAILURE);
                 }
             }
