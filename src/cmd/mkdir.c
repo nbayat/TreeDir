@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
-#include <assert.h>
 #include <stdlib.h>
 
 #include "../noeud.h"
@@ -17,7 +16,7 @@ void mkdir(char nom[100], noeud *parent)
         printf("! DEBUG ! -> mkdir %s", nom);
         if (strcmp(parent->nom, "") != 0)
         {
-            printf(" dans %s\n", parent->nom);
+            printf(" depuis %s\n", parent->nom);
         }
         else
         {
@@ -26,7 +25,7 @@ void mkdir(char nom[100], noeud *parent)
     }
     if (strlen(nom) > 100)
     {
-        assert("mkdir: Nom de fichier trop long (référence_de_l'erreur_MKDIR01)\n");
+        printf("mkdir: Nom de fichier trop long \n");
         exit(EXIT_FAILURE);
     }
 
@@ -34,14 +33,14 @@ void mkdir(char nom[100], noeud *parent)
     {
         if (!isalnum(nom[i]))
         {
-            assert("mkdir: La chaîne de caractères contient un caractère non alphanumérique. (référence_de_l'erreur_MKDIR02)\n");
+            printf("mkdir: La chaîne de caractères contient un caractère non alphanumérique. \n");
             exit(EXIT_FAILURE);
         }
     }
 
     if (have_child_by_name(parent, nom))
     {
-        assert("mkdir: Le fichier existe déjà (référence_de_l'erreur_MKDIR03)");
+        printf("mkdir: Le repo existe déjà ");
         return;
     }
 

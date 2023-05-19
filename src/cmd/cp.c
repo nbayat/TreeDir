@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <assert.h>
 
 #include "../noeud.h"
 #include "path.h"
@@ -18,15 +17,21 @@ void cp(char *source, char *dest, noeud *dir)
         printf("! DEBUG ! -> cp %s %s", source, dest);
         if (strcmp(dir->nom, "") != 0)
         {
-            printf(" dans %s\n", dir->nom);
+            printf(" depuis %s\n", dir->nom);
         }
         else
         {
-            printf(" dans root\n");
+            printf(" depuis root\n");
         }
     }
 
     noeud *currentPath = dir;
+
+    if (!isValidPath(source, dir))
+    {
+        printf("Le chemin source n'est pas valide\n");
+        exit(EXIT_FAILURE);
+    }
 
     char *sourcePere = malloc(strlen(source) + 1);
     sourcePere = exclude_last_word_from_path(source);
@@ -61,9 +66,16 @@ void cp(char *source, char *dest, noeud *dir)
 
     if (dir == NULL)
     {
-        assert("Chemin invalide (référence_de_l'erreur_CP2)\n");
+        printf("Chemin invalide \n");
         exit(EXIT_FAILURE);
     }
+
+    if (have_child_by_name(dir, destNom) == true)
+    {
+        printf("Un fichier ou répertoire de ce nom existe déjà\n");
+        exit(EXIT_FAILURE);
+    }
+
     noeud *copy = duplicate_node(sourceNoeud, dir);
     strcpy(copy->nom, destNom);
     copy->pere = dir;

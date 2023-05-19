@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <assert.h>
 
 #include "../noeud.h"
 #include "path.h"
@@ -18,35 +17,33 @@ noeud *cd(char *path, noeud *dir)
         printf("! DEBUG ! -> cd %s", path);
         if (strcmp(dir->nom, "") != 0)
         {
-            printf(" dans %s\n", dir->nom);
+            printf(" depuis %s\n", dir->nom);
         }
         else
         {
-            printf(" dans root\n");
+            printf(" depuis root\n");
         }
     }
     if (isReturnToRoot(path))
     {
-        // dir = dir->racine;
         return dir->racine;
     }
     if (isCurrent(path))
     {
-        // on esy déjà dans le bon répertoire
+        // on esy déjà depuis le bon répertoire
         return dir;
     }
     if (isLevelUp(path))
     {
         if (dir->racine == dir)
         {
-            // dir est déjà le répertoire racine
             return dir;
         }
         return dir->pere;
     }
     if (dir->fils == NULL && isRelative(path) && !isReturnToRoot(path) && !isCurrent(path) && !isLevelUp(path))
     {
-        assert("ce répertoire est vide et ne contient pas un pere ou root\n");
+        printf("ce répertoire est vide et le path relative n'est pas valide\n");
         exit(EXIT_FAILURE);
     }
 
@@ -63,13 +60,13 @@ noeud *cd(char *path, noeud *dir)
                 dir = find_child(dir, token);
                 if (dir == NULL)
                 {
-                    assert("Aucun fichier ou répertoire de ce nom (référence_de_l'erreur_RM01)\n");
+                    printf("Aucun fichier ou répertoire de ce nom\n");
                     exit(EXIT_FAILURE);
                     return dir;
                 }
                 else if (!dir->est_dossier)
                 {
-                    assert("ce n'est pas un répertoire\n");
+                    printf("ce n'est pas un répertoire\n");
                     exit(EXIT_FAILURE);
                 }
             }
@@ -90,6 +87,14 @@ noeud *cd(char *path, noeud *dir)
                 dir = find_child(dir, token);
                 if (dir == NULL)
                 {
+                    printf("Aucun fichier ou répertoire de ce nom \n");
+                    exit(EXIT_FAILURE);
+                    return dir;
+                }
+                else if (!dir->est_dossier)
+                {
+                    printf("ce n'est pas un répertoire\n");
+                    exit(EXIT_FAILURE);
                 }
             }
             token = strtok(NULL, "/");

@@ -160,3 +160,33 @@ bool is_one_word(char *path)
     }
     return false;
 }
+
+bool isSubPath(char *path, char *subPath)
+{
+    if (strcmp(path, subPath) == 0)
+    {
+        return true;
+    }
+    if (is_one_word(path))
+    {
+        return false;
+    }
+    char *newPath = malloc(strlen(path) + 1);
+    strcpy(newPath, path);
+    char *token = strtok(newPath, "/");
+
+    char *newSubPath = malloc(strlen(subPath) + 1);
+    strcpy(newSubPath, subPath);
+    char *token2 = strtok(newSubPath, "/");
+
+    while (token != NULL)
+    {
+        if (strcmp(token, token2) == 0)
+        {
+            return true;
+        }
+        token = strtok(NULL, "/");
+        token2 = strtok(NULL, "/");
+    }
+    return false;
+}

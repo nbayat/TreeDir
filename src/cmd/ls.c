@@ -21,11 +21,11 @@ void ls(noeud *dir)
         printf("! DEBUG ! -> ls");
         if (strcmp(dir->nom, "") != 0)
         {
-            printf(" dans %s\n", dir->nom);
+            printf(" depuis %s\n", dir->nom);
         }
         else
         {
-            printf(" dans root\n");
+            printf(" depuis root\n");
         }
     }
     printf("[ls]: ");

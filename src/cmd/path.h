@@ -13,5 +13,6 @@ bool isValidPath(char *path, noeud *dir);
 char *extract_last_word_from_path(char *path);
 char *exclude_last_word_from_path(char *path);
 bool is_one_word(char *path);
+bool isSubPath(char *path, char *subPath);
 
 #endif

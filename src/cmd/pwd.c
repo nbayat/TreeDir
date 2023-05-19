@@ -12,11 +12,11 @@ char *pwd(noeud *n)
         printf("! DEBUG ! -> pwd");
         if (strcmp(n->nom, "") != 0)
         {
-            printf(" dans %s\n", n->nom);
+            printf(" depuis %s\n", n->nom);
         }
         else
         {
-            printf(" dans root\n");
+            printf(" depuis root\n");
         }
     }
 

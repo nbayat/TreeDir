@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "../noeud.h"
 #include "../debug.h"
@@ -15,7 +15,7 @@ void touch(noeud *parent, char *filename)
         printf("! DEBUG ! -> touch %s", filename);
         if (strcmp(parent->nom, "") != 0)
         {
-            printf(" dans %s\n", parent->nom);
+            printf(" depuis %s\n", parent->nom);
         }
         else
         {
@@ -23,10 +23,31 @@ void touch(noeud *parent, char *filename)
         }
     }
 
+    if (strlen(filename) > 100)
+    {
+        printf("mkdir: Nom de fichier trop long \n");
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; filename[i]; i++)
+    {
+        if (!isalnum(filename[i]))
+        {
+            printf("mkdir: La chaîne de caractères contient un caractère non alphanumérique. \n");
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    if (have_child_by_name(parent, filename))
+    {
+        printf("mkdir: Le fichier existe déjà ");
+        return;
+    }
+
     noeud *new_file = (noeud *)malloc(sizeof(noeud));
     if (new_file == NULL)
     {
-        assert("Error: could not allocate memory for new file. (référence_de_l'erreur_TOUCH10)\n");
+        printf("Error: le mémoire n'est pas alloué \n");
         exit(EXIT_FAILURE);
     }
 
