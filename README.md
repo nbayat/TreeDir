@@ -1,16 +1,28 @@
---Groupe 43
-BAYAT Nima
-LAGRENEE Quentin
+
+![Screenshot 2023-06-26 at 18 11 56](https://github.com/nbayat/projetC/assets/78981747/d3de791d-6274-4839-bf72-0246507e5e30)
 
 
-Bonjour,
+# ⚠️ Warning
+This repository houses the code for a Unix terminal emulator written in C. The code was written carefully, ensuring that there are no memory leaks or overflows. However, please note that this was done solely for educational purposes and is not intended for any other use.
 
-Vous pouvez compiler le programme en utilisant la commande "make" (ou, si nécessaire, "make clean & make").
-Ensuite, vous trouverez l'exécutable du programme dans le répertoire "./build/bin/treedir"
-Vous pouvez exécuter les tests en utilisant l'exécutable, par exemple par la commande "./build/bin/treedir ./tests/test1.txt".
+## Instructions
 
-Toutes les fonctions fonctionnent correctement comme prévu, tous les tests se passent bien.
+To build the program, execute the 'make' command. Afterward, you can find the binary file under 'build/bin/treedir'
 
-Si vous souhaitez voir les commandes exécutées aux côtés de leur sortie, mettez la variable "debug" du fichier src/debug.h à "vrai".
+```console
+~$ make
+```
 
-Merci et bonne journée
+```console
+~$ ./build/bin/treedir
+```
+
+To run tests:
+
+```console
+~$ ./build/bin/treedir ./tests/test1.txt
+```
+
+## credits
+Nima BAYAT 
+Quentin LAGRENEE 
